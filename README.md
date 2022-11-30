@@ -7,87 +7,157 @@ Halo teman-teman Android! Ini merupakan final project untuk kelas Back-end Basic
 ## Tahapan
 1. Baca detail tugas di bawah
 2. Clone atau download repository ini untuk base structure project-nya
-3. Selamat Ngoding! ✨
+3. Buka project menggunakan IDE pilihan kalian, kemudian jalankan _command_ `npm install` di terminal
+4. Package utama yang diperlukan dan npm script utama sudah ada, jadi kalian tinggal membuat logic API nya
+5. Selamat Ngoding! ✨
 ## Detail Tugas
-- Minimal memiliki entitas admin dan 2 entitas lain yang memiliki relasi 1:n (One to Many) atau m:n (Many to One) antara 2 entitas tersebut,
-- Web Service API (CRUD) untuk admin dan 2 entitas yang ditentukan,
-- Membuat signup dan login authentication (signup optional, yang wajib hanya login). Apabila login berhasil, maka akan mengembalikan token JWT yang bisa digunakan untuk Create, Update, dan Delete 2 entitas yang ditentukan, serta Update dan Delete admin.
-- Membuat authorization middleware untuk cek apakah merupakan admin yang sudah login atau bukan? Kalau bukan, maka kembalikan error.
+#### 1. API dapat menyimpan catatan
+> API yang dibuat harus dapat **menyimpan** catatan melalui route:
+> - Method : POST
+> - URL : /notes
+> - Body Request:
+> ```
+> {
+>   id: integer,
+>   title: string,
+>   body: string,
+>   createdAt: string,
+>   updatedAt: string
+> }
+> ```
+> Bila catatan **berhasil ditambahkan**, server harus mengembalikan response dengan ketentuan sebagai berikut:
+> - Status Code : 201
+> - Response Body:
+> ```
+> {
+>   "status": "success",
+>   "message": "catatan berhasil ditambahkan",
+>   "data": {
+>       "id": 1
+>   }
+> }
+> ```
 
-> ## Contoh 📝
 
+
+#### 2. API dapat menampilkan seluruh catatan
+> API yang dibuat harus dapat **menampilkann** seluruh catatan melalui route:
+> - Method : GET
+> - URL : /notes
+> 
+> Server harus mengembalikan respons dengan::
+> - Status Code : 200
+> - Response Body:
+> ```
+> {
+>   "status": "success",
+>   "data": [
+>       {
+>           "id": 1,
+>           "title": "Tugas",
+>           "body": "Tugas Algoritma Pemrograman 1",
+>           "createdAt": "2022-11-30T11:25:01.134Z",
+>           "updatedAt": "2022-11-30T11:25:01.134Z"
+>       },
+>       {
+>           "id": 2,
+>           "title": "Catetan",
+>           "body": "Halo ini catetan saya hari ini",
+>           "createdAt": "2022-11-30T11:25:01.134Z",
+>           "updatedAt": "2022-11-30T11:25:01.134Z"
+>       },
+>   ]
+> }
+> ```
+
+#### 3. API dapat menampilkan detail catatan
+> API yang dibuat harus dapat menampilkan detail catatan melalui route:
+> - Method : GET
+> - URL : /notes/{id}
+> 
+> Bila catatan dengan id yang dilampirkan oleh client **tidak ditemukan**, maka server harus mengembalikan respons dengan:
+> - Status Code : 404
+> - Response Body:
+> ```
+> {
+>   "status": "fail",
+>   "message": "Catatan tidak ditemukan",
+> }
+> ```
+> Bila catatan dengan id yang dilampirkan oleh client **ditemukan**, maka server harus mengembalikan respons dengan:
+> - Status Code : 200
+> - Response Body:
+> ```
+> {
+>   "status": "success",
+>   "data": {
+>       "id": 1,
+>       "title": "Tugas",
+>       "body": "Tugas Algoritma Pemrograman 1",
+>       "createdAt": "2022-11-30T11:25:01.134Z",
+>       "updatedAt": "2022-11-30T11:25:01.134Z"
+>   }
+> }
+> ```
+
+#### 4. API dapat mengubah catatan
+> API yang dibuat harus dapat mengubah catatan melalui route:
+> - Method : PUT
+> - URL : /notes/{id}
+> - Body Request: 
+> ```
+> {
+>   title: string,
+>   body: string,
+>   createdAt: string,
+>   updatedAt: string
+> }
+> ```
+> Bila catatan **berhasil diperbarui**, server harus mengembalikan respons dengan:
+> - Status Code : 200
+> - Response Body:
+> ```
+> {
+>   "status": "success",
+>   "message": "Catatan berhasil diperbarui",
+> }
+> ```
+#### 5. API dapat menghapus catatan
+> API yang dibuat harus dapat menyimpan catatan melalui route:
+> - Method : DELETE
+> - URL : /notes/{id}
+> Bila catatan **berhasil dihapus**, server harus mengembalikan respons dengan:
+> - Status Code : 200
+> - Response Body:
+> ```
+> {
+>   "status": "success",
+>   "message": "Catatan berhasil dihapus",
+> }
+> ```
+
+___
+## Contoh 📝
+Ini menggunakan framework yang berbeda (hapi), namun dapat dijadikan gambaran yaa
+
+https://github.com/abimnyud/notes-app-backend
 
 ---
-## Penilaian Tambahan
-- Membuat error handling sendiri pakai class ataupun middleware
-- Menggunakan enkripsi password yang disimpan ke database (bcrypt, argon2, dsb.)
-- API read data pemain atau film mengembalikan data join relasinya, misal:
-  - Ketika Get Film by id 1, maka juga akan mengembalikan data para pemainnya
-    <details>
-      <summary>Klik buat liat datanya</summary>
-
-      ```
-	  
-      {
-      	"judul_film": "Gundala",
-      	"rating": 5,
-      	"pemain": [
-      		{
-      			"id": 1,
-                "nama": "Abimana Aryasatya",
-      			"rating": 5
-      		},
-      		{
-      			"id": 2,
-                "nama": "Pevita Pearce",
-      			"rating": 5
-      		},
-      		{
-      			"id": 3,
-                "nama": "Tara Basro",
-      			"rating": 5
-      		}
-      	]
-      }
-
-      ```
-
-    </details>
-  - Ketika Get Cast by id 1, maka juga akan mengembalikan data film yang dimainkan
-    <details>
-      <summary>Klik buat liat datanya</summary>
-
-      ```
-
-      {
-      	"nama": "Abimana Aryasatya",
-      	"rating": 5,
-      	"pemain": [
-      		{
-      			"id": 1,
-                "judul_film": "Gundala",
-      			"rating": 5
-      		}
-      	]
-      }
-      
-      ```
-
-    </details>
-
 ## Cara Ngumpulin
 1. Kalau mau kumpulin lewat git 
    1. Buat branch baru ([git cmd](#git-commands) poin 2)
    2. Jangan lupa commit file kalian ([git cmd](#git-commands) poin 2)
    3. Push branch kalian ke remote ([git cmd](#git-commands) poin 9)
-2. Presentasi setelah tanggal 19 Desember (nanti disampaikan lagi)
-3. Kelar deh 🤟
+2. Kalau mau ngumpulin lewat google drive bisa upload folder ke sini yaa https://bit.ly/fp-backend-basic
+3. Presentasi setelah tanggal 19 Desember (nanti disampaikan lagi)
 
 ## Link Tutorial Tambahan Yang Bisa Dipelajari
-- Setup database https://youtu.be/8JPmHZJKB5w
-- Authentication dan Authorization https://youtu.be/2jqok-WgelI
+- https://youtu.be/-MTSQjw5DrM - RESTful APIs in 100 Seconds // Build an API from Scratch with Node.js Express
+- https://youtu.be/TecGUz4bPFA - Belajar NodeJS | 14. Apa itu Express?
   
-## Git Commands
+
+---
+#### Git Commands
 1. Clone repository
 `git clone https://github.com/abimnyud/example-app.git`
 
