@@ -149,7 +149,7 @@ https://github.com/abimnyud/notes-app-backend
    2. Jangan lupa commit file kalian ([git cmd](#git-commands) poin 2)
    3. Push branch kalian ke remote ([git cmd](#git-commands) poin 9)
 2. Kalau mau ngumpulin lewat google drive bisa upload folder ke sini yaa https://bit.ly/fp-backend-basic
-3. Presentasi setelah tanggal 19 Desember (nanti disampaikan lagi)
+3. Presentasi tanggal 19 Desember
 
 ## Link Tutorial Tambahan Yang Bisa Dipelajari
 - https://youtu.be/-MTSQjw5DrM - RESTful APIs in 100 Seconds // Build an API from Scratch with Node.js Express
