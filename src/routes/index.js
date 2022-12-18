@@ -1,14 +1,18 @@
-const express = require('express');
+const express = require("express")
 
-const exampleRoutes = require('./exampleRoutes')
+const exampleRoutes = require("./exampleRoutes")
+const notesRoutes = require("./notesRoutes")
 
-
-
-const router = express.Router();
+const router = express.Router()
 
 /**
  * Example Route
  */
-router.use('/example', exampleRoutes);
+router.use("/example", exampleRoutes)
 
-module.exports = router;
+/**
+ * Notes Route
+ */
+router.use("/notes", notesRoutes)
+
+module.exports = router
